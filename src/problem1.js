@@ -1,20 +1,41 @@
 
 const MILK_BOXES_LIMIT = 100;
 
-const output = milkMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]);
+const output = milkMerchant(20, [4, 5, 5, 5, 6, 6, 4, 1, 4, 4, 3, 6, 6, 3, 6, 1, 4, 5, 5, 5]);
 
-function milkMerchant (numberOfMilkBoxes, colorsArray)
-{
+console.log('OUTPUT: ', output);
+
+function milkMerchant(numberOfMilkBoxes, colorsArray) {
   let result = 0;
-  
-  if(validateBoxesAndColors(numberOfMilkBoxes, colorsArray) && validateMilkBoxesLimit(colorsArray))
-  {   
+
+  if (validateBoxesAndColors(numberOfMilkBoxes, colorsArray) && validateMilkBoxesLimit(colorsArray)) {
+
     const milkBoxesColorGroups = groupMilkBoxesByColor(numberOfMilkBoxes, colorsArray);
 
-    console.log(milkBoxesColorGroups);
+    console.log('Milk boxes color groups: ', milkBoxesColorGroups);
+
+    Object.keys(milkBoxesColorGroups).map(function (colorKey) {
+
+      if (milkBoxesColorGroups[colorKey] > 1) {
+
+        let numberOfPairs = 0;
+
+        if (milkBoxesColorGroups[colorKey] % 2 == 0) {
+          numberOfPairs += (milkBoxesColorGroups[colorKey] / 2);
+        }
+        else {
+          numberOfPairs += (milkBoxesColorGroups[colorKey] / 2) - 0.5;
+        }
+
+        console.log('Number of pairs - ', colorKey, ' -> ', numberOfPairs);
+
+        result += numberOfPairs;
+      }
+
+    });
+
   }
-  else
-  {
+  else {
     console.log('Input error');
   }
 
@@ -23,37 +44,30 @@ function milkMerchant (numberOfMilkBoxes, colorsArray)
 
 //==================== VALIDATIONS ====================
 
-function validateBoxesAndColors (numberOfMilkBoxes, colorsArray)
-{
+function validateBoxesAndColors(numberOfMilkBoxes, colorsArray) {
   return numberOfMilkBoxes == colorsArray.length;
 }
 
-function validateMilkBoxesLimit(colorsArray)
-{
+function validateMilkBoxesLimit(colorsArray) {
   return colorsArray.length <= MILK_BOXES_LIMIT;
 }
 
 //======================= GROUP ============================
 
-function groupMilkBoxesByColor(numberOfMilkBoxes, colorsArray)
-{
+function groupMilkBoxesByColor(numberOfMilkBoxes, colorsArray) {
   let milkBoxesColorGroups = {};
 
-  for(i = 0; i < numberOfMilkBoxes; i++)
-  {
-    if(!milkBoxesColorGroups[colorsArray[i]])
-    {
+  for (i = 0; i < numberOfMilkBoxes; i++) {
+    if (!milkBoxesColorGroups[colorsArray[i]]) {
       milkBoxesColorGroups[colorsArray[i]] = 1;
     }
-    else
-    {
+    else {
       milkBoxesColorGroups[colorsArray[i]] = milkBoxesColorGroups[colorsArray[i]] + 1;
     }
   }
 
   return milkBoxesColorGroups;
 }
-
 
 module.exports = {
   milkMerchant,
