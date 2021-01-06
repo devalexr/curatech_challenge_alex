@@ -50,7 +50,7 @@ function milkMerchant(numberOfMilkBoxes, colorsArray) {
 
   }
   else {
-    console.log('Input error');
+    console.error('Input error (Run test cases)');
   }
 
   return result;
