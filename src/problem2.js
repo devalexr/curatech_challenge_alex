@@ -25,15 +25,42 @@ function countingValleys (steps, path) {
     const pathCharacterArray = path.split('');
 
     console.log('path units array', pathCharacterArray);
+    let valleys = 0;
+    let seaLevelCounter = 0; 
 
     Object.keys(pathCharacterArray).map(function (i) {
-      console.log(pathCharacterArray[i]);
+
+      const pathCharacter = pathCharacterArray[i];
+
+      (pathCharacter == 'U') ? seaLevelCounter++ : seaLevelCounter--;
+      
+      //first unit advaced
+      if(i > 1)
+      {
+        //is below to the sea level 
+        if(seaLevelCounter < 0)
+        {
+          /*
+          search valley format ("UD") below to the sea level 
+          */
+
+          if(pathCharacterArray[i - 1] == 'U' && pathCharacter == 'D')
+          {
+            console.log('VALLEY FOUND! step: ', i);
+
+            valleys++;
+          }
+        }
+      }
+
     });
+
+    result = valleys;
 
   }
   else
   {
-    console.log('Input error');
+    console.error('Input error (Run test cases)');
   }
 
   return result;
@@ -57,7 +84,7 @@ function countingValleys (steps, path) {
 function validatePathInput(steps, path) {
 
   //validate path.length
-  if(steps == path.length || steps >= MIN_STEPS_IN_PATH)
+  if(steps == path.length && steps >= MIN_STEPS_IN_PATH)
   {
     //validate format of path
     if(/U|D/.test(path))
