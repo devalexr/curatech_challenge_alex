@@ -10,5 +10,9 @@ describe('PROBLEM 2 TESTS', () => {
     expect(Problem2.validatePathInput(steps, path)).toBe(true);
   });
 
+  it('Validate path ends at ocean level', () => {
+    expect(Problem2.validatePathFinishInSeaLevel(path)).toBe(true);
+  });
+
 });
 
