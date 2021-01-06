@@ -6,7 +6,7 @@ const output = countingValleys(12, 'DDUUDDUDUUUD');
 console.log('OUTPUT: ', output);
 
 /**
- * return an integer representing the number of matching milkboxes that are available. 
+ * return an integer representing the number of valleys traversed.
  *
  * @param {int} steps - the number of steps on the hike
  * @param {string} path a string describing the path
@@ -15,37 +15,33 @@ console.log('OUTPUT: ', output);
  *
  */
 
-function countingValleys (steps, path) {
+function countingValleys(steps, path) {
 
   let result = 0;
 
   //validate input
-  if(validatePathInput(steps, path) && validatePathFinishInSeaLevel(path))
-  {
+  if (validatePathInput(steps, path) && validatePathFinishInSeaLevel(path)) {
     const pathCharacterArray = path.split('');
 
     console.log('path units array', pathCharacterArray);
     let valleys = 0;
-    let seaLevelCounter = 0; 
+    let seaLevelCounter = 0;
 
     Object.keys(pathCharacterArray).map(function (i) {
 
       const pathCharacter = pathCharacterArray[i];
 
       (pathCharacter == 'U') ? seaLevelCounter++ : seaLevelCounter--;
-      
+
       //first unit advaced
-      if(i > 1)
-      {
+      if (i > 1) {
         //is below to the sea level 
-        if(seaLevelCounter < 0)
-        {
+        if (seaLevelCounter < 0) {
           /*
           search valley format ("UD") below to the sea level 
           */
 
-          if(pathCharacterArray[i - 1] == 'U' && pathCharacter == 'D')
-          {
+          if (pathCharacterArray[i - 1] == 'U' && pathCharacter == 'D') {
             console.log('VALLEY FOUND! step: ', i);
 
             valleys++;
@@ -58,8 +54,7 @@ function countingValleys (steps, path) {
     result = valleys;
 
   }
-  else
-  {
+  else {
     console.error('Input error (Run test cases)');
   }
 
@@ -84,11 +79,9 @@ function countingValleys (steps, path) {
 function validatePathInput(steps, path) {
 
   //validate path.length
-  if(steps == path.length && steps >= MIN_STEPS_IN_PATH)
-  {
+  if (steps == path.length && steps >= MIN_STEPS_IN_PATH) {
     //validate format of path
-    if(/U|D/.test(path))
-    {
+    if (/U|D/.test(path)) {
       return true;
     }
   }
@@ -119,12 +112,10 @@ function validatePathFinishInSeaLevel(path) {
 
   Object.keys(pathCharacterArray).map(function (i) {
 
-    if(pathCharacterArray[i] == 'U')
-    {
+    if (pathCharacterArray[i] == 'U') {
       seaLevelCounter++;
     }
-    else
-    {
+    else {
       seaLevelCounter--;
     }
 
@@ -132,17 +123,15 @@ function validatePathFinishInSeaLevel(path) {
 
   isValid = (seaLevelCounter == 0);
 
-  if(!isValid)
-  {
+  if (!isValid) {
     console.error('Sea level in path: ', seaLevelCounter);
   }
 
   return isValid;
 }
 
-
-
 module.exports = {
+  countingValleys,
   validatePathInput,
   validatePathFinishInSeaLevel
 }

@@ -14,5 +14,9 @@ describe('PROBLEM 2 TESTS', () => {
     expect(Problem2.validatePathFinishInSeaLevel(path)).toBe(true);
   });
 
+  it('Test result', () => {
+    expect(Problem2.countingValleys(steps, path)).toBe(2);
+  });
+
 });
 
