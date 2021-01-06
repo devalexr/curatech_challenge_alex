@@ -7,7 +7,6 @@ const numberOfMilkBoxes = 7;
 
 describe('PROBLEM 1 TESTS', () => {
 
-
   it('Validate size of colors array', () => {
     expect(Problem1.validateMilkBoxesLimit(colorsArray)).toBe(true);
   });
